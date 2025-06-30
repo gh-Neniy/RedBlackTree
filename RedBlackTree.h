@@ -1,5 +1,9 @@
+#pragma once
 #include <iostream>
 #include <string>
+
+#ifndef NENIY_REDBLACKTREE
+#define NENIY_REDBLACKTREE
 
 class RedBlackTree {
  public:
@@ -428,3 +432,5 @@ class RedBlackTree {
 
   Node* root_;
 };
+
+#endif // NENIY_REDBLACKTREE
