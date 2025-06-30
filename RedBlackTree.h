@@ -428,29 +428,3 @@ class RedBlackTree {
 
   Node* root_;
 };
-
-int main() {
-  std::cin.tie(nullptr);
-  std::cout.tie(nullptr);
-  std::ios_base::sync_with_stdio(false);
-
-  std::string query;
-  RedBlackTree red_black_tree;
-  while (std::cin >> query) {
-    int value;
-    std::cin >> value;
-    if (query == "insert") {
-      red_black_tree.Insert(value);
-    } else if (query == "exists") {
-      std::cout << red_black_tree.Find(value) << '\n';
-    } else if (query == "next") {
-      std::cout << red_black_tree.FindGreaterThan(value) << '\n';
-    } else if (query == "prev") {
-      std::cout << red_black_tree.FindLessThan(value) << '\n';
-    } else if (query == "delete") {
-      red_black_tree.Erase(value);
-    } else if (query == "kth") {
-      std::cout << red_black_tree.Statistic(value) << '\n';
-    }
-  }
-}
