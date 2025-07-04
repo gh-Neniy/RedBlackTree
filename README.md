@@ -4,29 +4,32 @@
 
 ## Основные операции
 
-- **Insert(value)** — Вставка нового элемента
-- **Erase(value)** — Удаление существующего элемента
-- **Find(value)** — Проверка наличия элемента
-- **FindGreaterThan(value)** — Наименьший элемент, строго больший value
-- **FindLessThan(value)** - Наибольший элемент, строго меньший value
-- **Statistic(k)** — k-я порядковая статистика в 0-индексации
+- **insert(value)** — Вставка нового элемента
+- **erase(value)** — Удаление существующего элемента
+- **find(value)** — Проверка наличия элемента
+- **find_greater_than(value)** — Наименьший элемент, строго больший value
+- **find_less_than(value)** - Наибольший элемент, строго меньший value
+- **statistic(k)** — k-я порядковая статистика в 0-индексации
 
 ## Использование
 
 ```cpp
 #include "RedBlackTree.h"
+#include <iostream>
 
 int main() {
-  RedBlackTree tree;
-  tree.Insert(2);
-  tree.Insert(5);
-  tree.Insert(11);
+  RedBlackTree<int> tree;
+  tree.insert(2);
+  tree.insert(5);
+  tree.insert(11);
+  tree.insert(17);
 
-  std::cout << tree.Find(2) << '\n'; // true
-  std::cout << tree.Statistic(1) << '\n'; // 5
-  tree.Erase(11);
+  std::cout << *tree.find(2) << '\n'; // 2
+  std::cout << *tree.statistic(1) << '\n'; // 5
+  tree.erase(11);
 
-  std::cout << tree.FindLessThan(8) << '\n'; // 5
+  std::cout << *tree.find_less_than(8) << '\n'; // 5
+  std::cout << *tree.find_greater_than(8) << '\n'; // 17
 }
 
 ```
