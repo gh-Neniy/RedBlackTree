@@ -164,6 +164,33 @@ class RedBlackTree {
 
   RedBlackTree() : base{&base, &base, &base} {}
 
+  RedBlackTree(const Compare& compare, const Alloc& alloc) noexcept : base{&base, &base, &base}, compare(compare), alloc(alloc) {}
+
+  RedBlackTree(const RedBlackTree& other) : RedBlackTree(other.compare, NodeAllocTraits::select_on_container_copy_construction(other.alloc)) {
+    for (const ValueType& value : other) {
+      insert(value);
+    }
+  }
+
+  RedBlackTree& operator=(const RedBlackTree& other) {
+    if (this == &other) {
+      return *this;
+    }
+    clear();
+    compare = other.compare;
+    if constexpr (NodeAllocTraits::propagate_on_container_copy_assignment::value) {
+      alloc = NodeAlloc(other.alloc);
+    }
+    for (const ValueType& value : other) {
+      insert(value);
+    }
+    return *this;
+  }
+
+  RedBlackTree(RedBlackTree&& other) noexcept = delete;
+
+  RedBlackTree& operator=(RedBlackTree&& other) = delete;
+
   ~RedBlackTree() { TraversalDelete(base.parent); }
 
   constexpr std::size_t size() const noexcept {
@@ -231,6 +258,12 @@ class RedBlackTree {
     ++after_erased;
     DeleteLogic(node);
     return after_erased;
+  }
+
+  void clear() {
+    while (!empty()) {
+      erase(begin());
+    }
   }
 
   template <typename V>
